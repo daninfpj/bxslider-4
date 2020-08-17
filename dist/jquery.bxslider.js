@@ -1118,16 +1118,12 @@
         var orig = e.originalEvent,
         touchPoints = (typeof orig.changedTouches !== 'undefined') ? orig.changedTouches : [orig];
 		var chromePointerEvents = typeof PointerEvent === 'function'; 
-		if (chromePointerEvents) { 
-			if (orig.pointerId === undefined) { 
-				return;
-			} 
-		}
+
         // record the starting touch x, y coordinates
         slider.touch.start.x = touchPoints[0].pageX;
         slider.touch.start.y = touchPoints[0].pageY;
 
-        if (slider.viewport.get(0).setPointerCapture) {
+        if (slider.viewport.get(0).setPointerCapture && slider.pointerId) {
           slider.pointerId = orig.pointerId;
           slider.viewport.get(0).setPointerCapture(slider.pointerId);
         }
